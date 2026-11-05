@@ -12,7 +12,7 @@ const context = { window: {} };
 context.window = context;
 vm.createContext(context);
 const core = read('js/core.js');
-vm.runInContext(core.slice(0, core.indexOf('(function () {\n  // ── ОЗВУЧКА')), context, { filename: 'core.js' });
+vm.runInContext(core.slice(0, core.search(/\(function \(\) \{\r?\n {2}\/\/ ── ОЗВУЧКА/)), context, { filename: 'core.js' });
 const weekFiles = readdirSync(new URL('js/', root)).filter((f) => /^week-\d\d\.js$/.test(f)).sort();
 for (const file of weekFiles) vm.runInContext(read(`js/${file}`), context, { filename: file });
 // Копия через JSON: массивы из другого realm vm не проходят deepStrictEqual.
